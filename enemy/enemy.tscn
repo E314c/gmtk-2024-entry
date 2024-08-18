@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2138h202djm4"]
+
+[ext_resource type="Texture2D" uid="uid://bj5187qf2n4ne" path="res://assets/IconGodotNode/node_2D/icon_skull.png" id="1_4qj4s"]
+[ext_resource type="Script" path="res://enemy/enemy.gd" id="1_elpje"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e8f1l"]
+size = Vector2(40, 39)
+
+[node name="enemy" type="Area2D" groups=["enemy", "player_hurter"]]
+script = ExtResource("1_elpje")
+metadata/_edit_vertical_guides_ = [-20.0]
+metadata/_edit_horizontal_guides_ = [-20.0]
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_e8f1l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -0.499999)
+scale = Vector2(2.5, 2.4375)
+texture = ExtResource("1_4qj4s")
+
+[node name="BulletTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="BulletTimer" to="." method="_on_bullet_timer_timeout"]

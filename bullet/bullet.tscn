@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://iy7g1dpnexva"]
+
+[ext_resource type="Script" path="res://bullet/bullet.gd" id="1_cn3xx"]
+[ext_resource type="Texture2D" uid="uid://b8reainoplm21" path="res://assets/All_Fire_Bullet_Pixel_16x16 (non-commerical).png" id="2_0jiv8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77l0u"]
+atlas = ExtResource("2_0jiv8")
+region = Rect2(176, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtpm3"]
+atlas = ExtResource("2_0jiv8")
+region = Rect2(192, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84tua"]
+atlas = ExtResource("2_0jiv8")
+region = Rect2(208, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtimo"]
+atlas = ExtResource("2_0jiv8")
+region = Rect2(224, 128, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nrybf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77l0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtpm3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84tua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtimo")
+}],
+"loop": true,
+"name": &"base_bullet",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f7yfq"]
+radius = 5.0
+
+[node name="bullet" type="Area2D" groups=["bullet", "player_hurter"]]
+script = ExtResource("1_cn3xx")
+player_bullet_color = Color(0, 0.511, 0.73, 1)
+metadata/_edit_vertical_guides_ = [-5.0]
+metadata/_edit_horizontal_guides_ = [-5.0]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.25, 1.25)
+sprite_frames = SubResource("SpriteFrames_nrybf")
+animation = &"base_bullet"
+autoplay = "base_bullet"
+frame_progress = 0.457525
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_f7yfq")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="DespawnTimer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

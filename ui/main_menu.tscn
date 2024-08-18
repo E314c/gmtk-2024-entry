@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsrhbcp7jibpl"]
+
+[ext_resource type="Script" path="res://ui/main_menu.gd" id="1_c1oj8"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_c1oj8")
+
+[node name="BGcolor" type="ColorRect" parent="."]
+offset_right = 752.0
+offset_bottom = 1000.0
+color = Color(0.909197, 0.220454, 0.892064, 0.866667)
+
+[node name="Title" type="Label" parent="."]
+offset_top = 128.0
+offset_right = 752.0
+offset_bottom = 195.0
+theme_override_font_sizes/font_size = 48
+text = "\"Witty-Pun-As-Title\""
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Title"]
+offset_top = 67.0
+offset_right = 752.0
+offset_bottom = 116.0
+text = "A bullet hell \"game built for the GMTK 2024 Game Jame
+
+The concept is a bullet hell, but you can choose to scale your player character.
+As mobility is a key component of bullet hell, your movement speed is tied to your speed:
+the larger you are, the faster you move
+"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Title"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 768.0
+offset_right = 744.0
+offset_bottom = 864.0
+text = "Disclaimer: This is basically my first ever \"not following a tutorial\" game. I just wanted to force myself to build and submit something."
+vertical_alignment = 2
+autowrap_mode = 2
+
+[node name="Controls" type="Label" parent="."]
+offset_top = 536.0
+offset_right = 752.0
+offset_bottom = 704.0
+text = "Can be played with either keyboard or controller
+
+Move: W/A/S/D or Left Thumbstick
+Scale: Up/Down or Right Thumbstick
+Shoot: Space or Right Trigger"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="."]
+offset_left = 245.0
+offset_top = 728.0
+offset_right = 528.0
+offset_bottom = 835.0
+theme_override_font_sizes/font_size = 72
+text = "Start!"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_button_pressed"]

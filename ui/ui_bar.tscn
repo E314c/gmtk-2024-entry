@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0b0okhca75qd"]
+
+[ext_resource type="Script" path="res://ui/ui_bar.gd" id="1_0qwnh"]
+
+[node name="UiBar" type="CanvasLayer"]
+script = ExtResource("1_0qwnh")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 750.0
+offset_bottom = 32.0
+color = Color(0.099986, 0.099986, 0.099986, 0.298039)
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 640.0
+offset_right = 750.0
+offset_bottom = 32.0
+text = "0"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 552.0
+offset_right = 633.0
+offset_bottom = 32.0
+text = "Score:"

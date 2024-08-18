@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://dly4oecp1whrx"]
+
+[ext_resource type="Script" path="res://enemy/enemy_simple_shooter.gd" id="1_i8ab4"]
+[ext_resource type="Texture2D" uid="uid://0k0fbykkrqlt" path="res://assets/IconGodotNode/node_2D/icon_gear.png" id="1_vmtfb"]
+[ext_resource type="AudioStream" uid="uid://dpetb0l58pibs" path="res://enemy/Retro Electric Sparks 01.wav" id="2_4fnbr"]
+[ext_resource type="AudioStream" uid="uid://cukwik1ou4uhu" path="res://enemy/Retro FootStep 03.wav" id="2_8o0xu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_78saq"]
+radius = 9.0
+
+[node name="enemy_simple_shooter" type="Area2D" groups=["enemy", "player_hurter"]]
+script = ExtResource("1_i8ab4")
+metadata/_edit_vertical_guides_ = [-8.0]
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_8o0xu")
+bus = &"SFX"
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_4fnbr")
+bus = &"SFX"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_78saq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_vmtfb")
+
+[node name="BulletTimer" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="finished" from="DeathSound" to="." method="_on_death_sound_finished"]
+[connection signal="timeout" from="BulletTimer" to="." method="_on_bullet_timer_timeout"]

@@ -1,0 +1,8 @@
+# Godot 4+ specific ignores
+.godot/
+
+# Exports of the project
+builds/
+
+# I'm assuming the .tmp files in some directories shouldn't be committed
+*.tmp

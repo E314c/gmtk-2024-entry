@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://cve5mxcxn4vp4"]
+
+[ext_resource type="PackedScene" uid="uid://65bnda8bhlql" path="res://player/player.tscn" id="1_r1jv6"]
+[ext_resource type="Script" path="res://main/main.gd" id="1_ysf3v"]
+[ext_resource type="PackedScene" uid="uid://b0b0okhca75qd" path="res://ui/ui_bar.tscn" id="4_khpcv"]
+[ext_resource type="PackedScene" uid="uid://clic2sxpgckx3" path="res://enemy_waves/wave_1.tscn" id="5_56pph"]
+[ext_resource type="PackedScene" uid="uid://bjyqlhu1baply" path="res://enemy_waves/wave_inf.tscn" id="5_jfp62"]
+[ext_resource type="PackedScene" uid="uid://bsrhbcp7jibpl" path="res://ui/main_menu.tscn" id="6_a0yt4"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_ysf3v")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.238803, 0.240186, 0.500781, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_r1jv6")]
+unique_name_in_owner = true
+position = Vector2(368, 860)
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="RespawnTimer" type="Timer" parent="Timers"]
+wait_time = 3.0
+one_shot = true
+
+[node name="ScoreTimer" type="Timer" parent="Timers"]
+
+[node name="ScreenClearTimer" type="Timer" parent="Timers"]
+wait_time = 0.5
+one_shot = true
+
+[node name="WaveStartTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+one_shot = true
+
+[node name="GameRestartMenu" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="UiBar" parent="." instance=ExtResource("4_khpcv")]
+
+[node name="Wave1" parent="." instance=ExtResource("5_56pph")]
+position = Vector2(0, 1)
+
+[node name="Wave_inf" parent="." instance=ExtResource("5_jfp62")]
+
+[node name="MainMenu" parent="." instance=ExtResource("6_a0yt4")]
+
+[connection signal="player_death" from="Player" to="." method="_on_player_player_death"]
+[connection signal="timeout" from="Timers/RespawnTimer" to="." method="_on_respawn_timer_timeout"]
+[connection signal="timeout" from="Timers/ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="Timers/ScreenClearTimer" to="." method="_on_screen_clear_timer_timeout"]
+[connection signal="timeout" from="Timers/WaveStartTimer" to="." method="_on_wave_start_timer_timeout"]
+[connection signal="timeout" from="Timers/GameRestartMenu" to="." method="_on_game_restart_menu_timeout"]
+[connection signal="wave_finished" from="Wave1" to="." method="_on_wave_1_finished"]
+[connection signal="start_button_pressed" from="MainMenu" to="." method="_on_main_menu_start_button_pressed"]
